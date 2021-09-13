@@ -12,13 +12,11 @@ foi concluído! Isso gerará um PR no classroom que será avaliado pela equipe.
 
 ## Documentação
 
-TODO: Aualizar pinos
-
 | Função  | PINO (ex: PA11) |
 |---------|-----------------|
-| BUZZER  |                 |
-| START   |                 |
-| SELEÇÃO |                 |
+| BUZZER  |       PD30      |
+| START   |       PD28      |
+| SELEÇÃO |       PC31      |
 
 ### Imagem da montagem
 
