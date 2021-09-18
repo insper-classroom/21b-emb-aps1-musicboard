@@ -59,9 +59,9 @@
 #define BUT2_IDX_MASK (1 << BUT2_IDX)
 
 // Buzzer
-#define BUZ_PIO      PIOD
-#define BUZ_PIO_ID   ID_PIOD
-#define BUZ_IDX      30
+#define BUZ_PIO      PIOA
+#define BUZ_PIO_ID   ID_PIOA
+#define BUZ_IDX      6
 #define BUZ_IDX_MASK (1 << BUZ_IDX)
 
 /************************************************************************/
@@ -182,6 +182,48 @@ void choice(void){
 	}
 }
 
+/**
+ * freq: Frequecia em Hz
+ * time: Tempo em ms que o tom deve ser gerado
+ */
+void tone(int freq, int time){
+	int n = (double) freq * ((double) time/1000);
+	float T = (1.0/freq) * 1E6; //ms
+	
+	for (int i = 0; i <= n; i++){
+		pio_set(BUZ_PIO, BUZ_IDX_MASK);
+		delay_us(T/2);
+		pio_clear(BUZ_PIO, BUZ_IDX_MASK);
+		delay_us(T/2);
+	}
+}
+
+void toca(long melodia[]){
+	// change this to make the song slower or faster
+	int tempo = 100;
+
+	// this calculates the duration of a whole note in ms
+	int wholenote = (60000 * 4) / tempo;
+	int notes = sizeof(melodia) / sizeof(melodia[0]) / 2;
+	// iterate over the notes of the melody.
+	// Remember, the array is twice the number of notes (notes + durations)
+	for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+
+		// calculates the duration of each note
+		double divider = melodia[thisNote + 1];
+		double noteDuration = (wholenote) / abs(divider);
+		if (divider < 0) {
+			noteDuration *= 1.5; // increases the duration in half for dotted notes
+		}
+
+		// we only play the note for 90% of the duration, leaving 10% as a pause
+		tone(melodia[thisNote], noteDuration * 0.9);
+
+		// Wait for the specief duration before playing the next note.
+		//delay_us(noteDuration);
+	}
+}
+
 
 void io_init(void){
 	// Configura led1
@@ -264,24 +306,26 @@ int main (void)
 	/* Settando variaveis iniciais */
 	nota = 0;
 	play = false;
-	selecionado = 1;
+	selecionado = 2;
 
   /* Insert application code here, after the board has been initialized. */
 	while(1) {
 		choice();
 		if (trocou){
 			if (selecionado == 1){
-				gfx_mono_draw_string("Teste 1", 0,10, &sysfont);
+				gfx_mono_draw_string("             ", 0,10, &sysfont);
+				gfx_mono_draw_string("Star Wars", 0,10, &sysfont);
 			} else if (selecionado == 2){
+				gfx_mono_draw_string("             ", 0,10, &sysfont);
 				gfx_mono_draw_string("Outro teste", 0,10, &sysfont);
 			}
 			trocou = false;
 		}
 		
 		if (selecionado == 1 && play){
-			
+			tone(420, 3);
 		} else if (selecionado == 2 && play){
-			
+			toca(melody_starwars);
 		}
 
 	}

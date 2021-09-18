@@ -162,12 +162,12 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/sam/boards/same70_xplained/led.h \
  ../src/ASF/sam/drivers/spi/spi.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- ../src/oled/gfx_mono_ug_2832hsweg04.h ../src/oled/ssd1306.h \
+ ../src/oled/gfx_mono_ug_2832hsweg04.h ../src/oled/ssd1306.h ../src/asf.h \
  ../src/config/conf_board.h ../src/oled/gfx_mono.h \
  ../src/oled/gfx_mono_ug_2832hsweg04.h ../src/oled/gfx_mono_generic.h \
  ../src/oled/gfx_mono_framebuffer.h ../src/oled/gfx_mono_text.h \
  ../src/oled/sysfont.h ../src/config/conf_sysfont.h \
- ../src/oled/gfx_mono_text.h
+ ../src/oled/gfx_mono_text.h ../src/musics.h
 
 ../src/asf.h:
 
@@ -509,6 +509,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/oled/ssd1306.h:
 
+../src/asf.h:
+
 ../src/config/conf_board.h:
 
 ../src/oled/gfx_mono.h:
@@ -526,3 +528,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/config/conf_sysfont.h:
 
 ../src/oled/gfx_mono_text.h:
+
+../src/musics.h:
