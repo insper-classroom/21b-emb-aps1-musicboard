@@ -24,7 +24,9 @@ TODO: Inserir imagem do sistema montado
 
 ### Vídeo do projeto
 
-TODO: Inserir link para vídeo do projeto funcionando
+ <video width="320" height="240" controls>
+  <source src="img/funcionando.mp4" type="video/mp4">
+</video> 
 
 ### Músicas e Direitos autorais
 
