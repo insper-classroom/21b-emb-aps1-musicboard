@@ -28,4 +28,5 @@ foi concluído! Isso gerará um PR no classroom que será avaliado pela equipe.
 
 ### Músicas e Direitos autorais
 
-TODO: Listar músicas e dar crédio da onde saiu:
+- Hedwig's Theme (© 2001 WARNER BROS-BARHAM MUSIC, LLC). Disponível em: https://github.com/robsoncouto/arduino-songs/blob/master/harrypotter/harrypotter.ino.
+- Cantina Band (© 1977 SONY MUSIC ENTERTAINMENT, LLC). Disponível em: https://github.com/robsoncouto/arduino-songs/blob/master/starwars/starwars.ino.
