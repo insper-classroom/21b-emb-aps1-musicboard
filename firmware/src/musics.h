@@ -111,23 +111,71 @@
 // so -4 means a dotted quarter note, that is, a quarter plus an eighteenth!!
 int melody_starwars[] = {
   
-  // Cantina BAnd - Star wars 
-  // Score available at https://musescore.com/user/6795541/scores/1606876
-  NOTE_B4,-4, NOTE_E5,-4, NOTE_B4,-4, NOTE_E5,-4, 
-  NOTE_B4,8,  NOTE_E5,-4, NOTE_B4,8, REST,8,  NOTE_AS4,8, NOTE_B4,8, 
-  NOTE_B4,8,  NOTE_AS4,8, NOTE_B4,8, NOTE_A4,8, REST,8, NOTE_GS4,8, NOTE_A4,8, NOTE_G4,8,
-  NOTE_G4,4,  NOTE_E4,-2, 
-  NOTE_B4,-4, NOTE_E5,-4, NOTE_B4,-4, NOTE_E5,-4, 
-  NOTE_B4,8,  NOTE_E5,-4, NOTE_B4,8, REST,8,  NOTE_AS4,8, NOTE_B4,8,
+  NOTE_AS4,8, NOTE_AS4,8, NOTE_AS4,8,//1
+  NOTE_F5,2, NOTE_C6,2,
+  NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F6,2, NOTE_C6,4,
+  NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F6,2, NOTE_C6,4,
+  NOTE_AS5,8, NOTE_A5,8, NOTE_AS5,8, NOTE_G5,2, NOTE_C5,8, NOTE_C5,8, NOTE_C5,8,
+  NOTE_F5,2, NOTE_C6,2,
+  NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F6,2, NOTE_C6,4,
+  
+  NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F6,2, NOTE_C6,4, //8
+  NOTE_AS5,8, NOTE_A5,8, NOTE_AS5,8, NOTE_G5,2, NOTE_C5,-8, NOTE_C5,16,
+  NOTE_D5,-4, NOTE_D5,8, NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F5,8,
+  NOTE_F5,8, NOTE_G5,8, NOTE_A5,8, NOTE_G5,4, NOTE_D5,8, NOTE_E5,4,NOTE_C5,-8, NOTE_C5,16,
+  NOTE_D5,-4, NOTE_D5,8, NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F5,8,
+  
+  NOTE_C6,-8, NOTE_G5,16, NOTE_G5,2, REST,8, NOTE_C5,8,//13
+  NOTE_D5,-4, NOTE_D5,8, NOTE_AS5,8, NOTE_A5,8, NOTE_G5,8, NOTE_F5,8,
+  NOTE_F5,8, NOTE_G5,8, NOTE_A5,8, NOTE_G5,4, NOTE_D5,8, NOTE_E5,4,NOTE_C6,-8, NOTE_C6,16,
+  NOTE_F6,4, NOTE_DS6,8, NOTE_CS6,4, NOTE_C6,8, NOTE_AS5,4, NOTE_GS5,8, NOTE_G5,4, NOTE_F5,8,
+  NOTE_C6,1 
+};
 
-  NOTE_A4,-4, NOTE_A4,-4, NOTE_GS4,8, NOTE_A4,-4,
-  NOTE_D5,8,  NOTE_C5,-4, NOTE_B4,-4, NOTE_A4,-4,
-  NOTE_B4,-4, NOTE_E5,-4, NOTE_B4,-4, NOTE_E5,-4, 
-  NOTE_B4,8,  NOTE_E5,-4, NOTE_B4,8, REST,8,  NOTE_AS4,8, NOTE_B4,8,
-  NOTE_D5,4, NOTE_D5,-4, NOTE_B4,8, NOTE_A4,-4,
-  NOTE_G4,-4, NOTE_E4,-2,
-  NOTE_E4, 2, NOTE_G4,2,
-  NOTE_B4, 2, NOTE_D5,2,
+// notes of the moledy followed by the duration.
+// a 4 means a quarter note, 8 an eighteenth , 16 sixteenth, so on
+// !!negative numbers are used to represent dotted notes,
+// so -4 means a dotted quarter note, that is, a quarter plus an eighteenth!!
+int melody_harrypotter[] = {
 
-  NOTE_F5, -4, NOTE_E5,-4, NOTE_AS4,8, NOTE_AS4,8, NOTE_B4,4, NOTE_G4,4, 
+
+	// Hedwig's theme fromn the Harry Potter Movies
+	// Socre from https://musescore.com/user/3811306/scores/4906610
+	
+	REST, 2, NOTE_D4, 4,
+	NOTE_G4, -4, NOTE_AS4, 8, NOTE_A4, 4,
+	NOTE_G4, 2, NOTE_D5, 4,
+	NOTE_C5, -2,
+	NOTE_A4, -2,
+	NOTE_G4, -4, NOTE_AS4, 8, NOTE_A4, 4,
+	NOTE_F4, 2, NOTE_GS4, 4,
+	NOTE_D4, -1,
+	NOTE_D4, 4,
+
+	NOTE_G4, -4, NOTE_AS4, 8, NOTE_A4, 4, //10
+	NOTE_G4, 2, NOTE_D5, 4,
+	NOTE_F5, 2, NOTE_E5, 4,
+	NOTE_DS5, 2, NOTE_B4, 4,
+	NOTE_DS5, -4, NOTE_D5, 8, NOTE_CS5, 4,
+	NOTE_CS4, 2, NOTE_B4, 4,
+	NOTE_G4, -1,
+	NOTE_AS4, 4,
+	
+	NOTE_D5, 2, NOTE_AS4, 4,//18
+	NOTE_D5, 2, NOTE_AS4, 4,
+	NOTE_DS5, 2, NOTE_D5, 4,
+	NOTE_CS5, 2, NOTE_A4, 4,
+	NOTE_AS4, -4, NOTE_D5, 8, NOTE_CS5, 4,
+	NOTE_CS4, 2, NOTE_D4, 4,
+	NOTE_D5, -1,
+	REST,4, NOTE_AS4,4,
+
+	NOTE_D5, 2, NOTE_AS4, 4,//26
+	NOTE_D5, 2, NOTE_AS4, 4,
+	NOTE_F5, 2, NOTE_E5, 4,
+	NOTE_DS5, 2, NOTE_B4, 4,
+	NOTE_DS5, -4, NOTE_D5, 8, NOTE_CS5, 4,
+	NOTE_CS4, 2, NOTE_AS4, 4,
+	NOTE_G4, -1,
+	
 };

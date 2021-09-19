@@ -59,9 +59,9 @@
 #define BUT2_IDX_MASK (1 << BUT2_IDX)
 
 // Buzzer
-#define BUZ_PIO      PIOA
-#define BUZ_PIO_ID   ID_PIOA
-#define BUZ_IDX      6
+#define BUZ_PIO      PIOD
+#define BUZ_PIO_ID   ID_PIOD
+#define BUZ_IDX      30
 #define BUZ_IDX_MASK (1 << BUZ_IDX)
 
 /************************************************************************/
@@ -70,7 +70,6 @@
 /* flags */
  volatile Bool play;
  volatile int selecionado;
- volatile int nota;
  volatile Bool trocou;
  
  /************************************************************************/
@@ -86,6 +85,8 @@
  void but1_callback(void);
  void but2_callback(void);
  void choice (void);
+ void tone(int freq, int time);
+ void toca(long melodia[]);
  
  /************************************************************************/
  /* funcoes                                                              */
@@ -200,27 +201,73 @@ void tone(int freq, int time){
 
 void toca(long melodia[]){
 	// change this to make the song slower or faster
-	int tempo = 100;
-
+	int tempo_starwars = 108;
+	int tempo_harrypotter = 144;
+	
 	// this calculates the duration of a whole note in ms
-	int wholenote = (60000 * 4) / tempo;
-	int notes = sizeof(melodia) / sizeof(melodia[0]) / 2;
+	int wholenote_starwars = (60000 * 4) / (tempo_starwars);
+	int wholenote_harrypotter = (60000 * 4) / (tempo_harrypotter);
+	
+	int notes_starwars = 172;
+	int notes_harrypotter = 124;
 	// iterate over the notes of the melody.
 	// Remember, the array is twice the number of notes (notes + durations)
-	for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+	
+	if (selecionado == 1){
+		for (int thisNote = 0; thisNote < abs(notes_starwars); thisNote = thisNote + 2) {
+			if (play){
+				// calculates the duration of each note
+				int divider = melodia[thisNote + 1];
+				int noteDuration = (wholenote_starwars) / abs(divider);
+				if (divider < 0) {
+					noteDuration *= 1.5; // increases the duration in half for dotted notes
+				}
+				
+				if (melodia[thisNote] == 0){
+					// Wait for the specief duration before playing the next note.
+					delay_us(noteDuration);
+				}
+				else{
+					// we only play the note for 90% of the duration, leaving 10% as a pause
+					tone(melodia[thisNote], noteDuration * 0.9);
+					
 
-		// calculates the duration of each note
-		double divider = melodia[thisNote + 1];
-		double noteDuration = (wholenote) / abs(divider);
-		if (divider < 0) {
-			noteDuration *= 1.5; // increases the duration in half for dotted notes
+					// Wait for the specief duration before playing the next note.
+					delay_us(noteDuration);
+				}
+			}
+			else {
+				pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
+			}
 		}
+	}
+	if (selecionado == 2){
+		for (int thisNote = 0; thisNote < abs(notes_harrypotter); thisNote = thisNote + 2) {
+			if (play){
+				// calculates the duration of each note
+				int divider = melodia[thisNote + 1];
+				int noteDuration = (wholenote_harrypotter) / abs(divider);
+				if (divider < 0) {
+					noteDuration *= 1.5; // increases the duration in half for dotted notes
+				}
+				
+				if (melodia[thisNote] == 0){
+					// Wait for the specief duration before playing the next note.
+					delay_us(noteDuration);
+				}
+				else{
+					// we only play the note for 90% of the duration, leaving 10% as a pause
+					tone(melodia[thisNote], noteDuration * 0.9);
+					
 
-		// we only play the note for 90% of the duration, leaving 10% as a pause
-		tone(melodia[thisNote], noteDuration * 0.9);
-
-		// Wait for the specief duration before playing the next note.
-		//delay_us(noteDuration);
+					// Wait for the specief duration before playing the next note.
+					delay_us(noteDuration);
+				}
+			}
+			else{
+				pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
+			}
+		}
 	}
 }
 
@@ -237,14 +284,15 @@ void io_init(void){
 	// Configura led3
 	pmc_enable_periph_clk(LED3_PIO_ID);
 	pio_configure(LED3_PIO, PIO_OUTPUT_0, LED3_IDX_MASK, PIO_DEFAULT);
+	
+	// Configura o Buzzer
+	pmc_enable_periph_clk(BUZ_PIO_ID);
+	pio_configure(BUZ_PIO, PIO_OUTPUT_0, BUZ_IDX_MASK, PIO_DEFAULT);
 
+	// ------ BOTAO 1------
 	// Inicializa clock do perif?rico PIO responsavel pelo botao1
 	pmc_enable_periph_clk(BUT1_PIO_ID);
-	
-	// Inicializa clock do perif?rico PIO responsavel pelo botao2
-	pmc_enable_periph_clk(BUT2_PIO_ID);
-	
-	// ------ BOTAO 1------
+		
 	pio_configure(BUT1_PIO, PIO_INPUT, BUT1_IDX_MASK, PIO_PULLUP | PIO_DEBOUNCE);
 	pio_set_debounce_filter(BUT1_PIO, BUT1_IDX_MASK, 60);
 
@@ -266,6 +314,9 @@ void io_init(void){
 	NVIC_SetPriority(BUT1_PIO_ID, 4); // Prioridade 4
 	
 	// ------ BOTAO 2------
+	// Inicializa clock do perif?rico PIO responsavel pelo botao2
+	pmc_enable_periph_clk(BUT2_PIO_ID);
+	
 	pio_configure(BUT2_PIO, PIO_INPUT, BUT2_IDX_MASK, PIO_PULLUP | PIO_DEBOUNCE);
 	pio_set_debounce_filter(BUT2_PIO, BUT2_IDX_MASK, 60);
 
@@ -304,7 +355,6 @@ int main (void)
 	LED3_init(1);
 	
 	/* Settando variaveis iniciais */
-	nota = 0;
 	play = false;
 	selecionado = 2;
 
@@ -315,18 +365,23 @@ int main (void)
 			if (selecionado == 1){
 				gfx_mono_draw_string("             ", 0,10, &sysfont);
 				gfx_mono_draw_string("Star Wars", 0,10, &sysfont);
+				play = false;
 			} else if (selecionado == 2){
 				gfx_mono_draw_string("             ", 0,10, &sysfont);
-				gfx_mono_draw_string("Outro teste", 0,10, &sysfont);
+				gfx_mono_draw_string("Harry Potter", 0,10, &sysfont);
+				play = false;
 			}
 			trocou = false;
 		}
 		
 		if (selecionado == 1 && play){
-			tone(420, 3);
-		} else if (selecionado == 2 && play){
 			toca(melody_starwars);
+			
+			play = false;
+		} else if (selecionado == 2 && play){
+			toca(melody_harrypotter);
+			play = false;
 		}
-
+		pmc_sleep(SAM_PM_SMODE_SLEEP_WFI);
 	}
 }
