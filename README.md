@@ -24,9 +24,9 @@ TODO: Inserir imagem do sistema montado
 
 ### Vídeo do projeto
 
- <video width="320" height="240" controls>
+<p><video width="320" height="240" controls>
   <source src="img/funcionando.mp4" type="video/mp4">
-</video> 
+</video></p>
 
 ### Músicas e Direitos autorais
 
