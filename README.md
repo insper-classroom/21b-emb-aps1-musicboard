@@ -20,7 +20,7 @@ foi concluído! Isso gerará um PR no classroom que será avaliado pela equipe.
 
 ### Imagem da montagem
 
-TODO: Inserir imagem do sistema montado
+[![Montagem](https://github.com/insper-classroom/21b-emb-aps1-musicboard/blob/main/img/esquema.jpeg)]
 
 ### Vídeo do projeto
 
